@@ -1,10 +1,10 @@
-#include <stdio.h>
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
 #include <semaphore.h>
 #include <unistd.h>
-
+#include <stdio.h>
 #define NUMTHREAD 16
 // using namespace std;
 int count = 0;

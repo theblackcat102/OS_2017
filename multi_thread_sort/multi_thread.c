@@ -133,13 +133,13 @@ void* split_thread(void *arguments){
     // printf("Thread %d started, low:%d, high:%d\n", arg->node, arg->high, arg->low);
     int pivot = -1;
     if (arg->low < arg->high){
-        pivot = partition(arg->array,arg->low,arg->high);
+        pivot = partition(global_array,arg->low,arg->high);
         t_params[(arg->node)*2]->low = arg->low;
         t_params[(arg->node)*2]->high = pivot-1;
-        t_params[(arg->node)*2]->array = arg->array;
+        t_params[(arg->node)*2]->array = global_array;
         t_params[((arg->node)*2)+1]->low = pivot+1;
         t_params[((arg->node)*2)+1]->high = arg->high;
-        t_params[(arg->node)*2+1]->array = arg->array;
+        t_params[(arg->node)*2+1]->array = global_array;
 
         // printf("\nPivot number: %d \nLow:\n",arg->array[pivot]);
         // for(int i=arg->low;i<=pivot-1;i++){
@@ -167,21 +167,22 @@ void* sort_thread(void *arguments){
     printf("\n%d %d\nOriginal sequence\n",arg->low,arg->high);
 
     for(int i=arg->low;i<=arg->high;i++){
-        printf("%d ",arg->array[i]);
+        printf("%d ",global_array[i]);
     }
-    for (int k = arg->low-1; k <= arg->high; k++){
-        for (int j = arg->low-1; j <= arg->high - k; j++){
-           if (arg->array[j] > arg->array[j+1]){
-               int temp = arg->array[j];
-               arg->array[j] = arg->array[j+1];
-               arg->array[j+1] = temp;
-           }
-        }
-    }
+    // for (int k = arg->low-1; k <= arg->high; k++){
+    //     for (int j = arg->low-1; j <= arg->high - k; j++){
+    //        if (arg->array[j] > arg->array[j+1]){
+    //            int temp = arg->array[j];
+    //            arg->array[j] = arg->array[j+1];
+    //            arg->array[j+1] = temp;
+    //        }
+    //     }
+    // }
+    bubbleSort(global_array,arg->low,arg->high);
 
     printf("\nPrint thread sequence\n");
     for(int i=arg->low;i<=arg->high;i++){
-        printf("%d ",arg->array[i]);
+        printf("%d ",global_array[i]);
     }
     // }
     printf("\n Thread %d finished\n", arg->node);
@@ -196,8 +197,8 @@ int main(int argc,char* argv[]){
     int *a,*b,*number_list,*number_list2,err;
     a = (int *)malloc(sizeof(int));
     b = (int *)malloc(sizeof(int));
-    number_list = read_file("example.txt",a);
-    number_list2 = read_file("example.txt",b);
+    number_list2 = read_file("example.txt",a);
+    global_array = read_file("example.txt",b);
 
     quickSort(number_list2,0,*b-1);
     printf("Result: %d\n",is_sequential(number_list2,*a));
@@ -216,7 +217,7 @@ int main(int argc,char* argv[]){
             t_params[i]->high = *a-1;
         t_params[i]->low = 0;
         t_params[i]->node = i;
-        t_params[i]->array = number_list;
+        t_params[i]->array = global_array;
 
         if( i < 8){
             pthread_create(&(thread[i]), NULL, &split_thread, (void *)t_params[i]);

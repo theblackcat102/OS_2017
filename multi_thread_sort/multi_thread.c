@@ -205,9 +205,9 @@ int main(int argc,char* argv[]){
     print_array(number_list);
     for(int i=0;i<NUMTHREAD;i++){
         // ubuntu use sem_init
-        // sem_init(&lock[i], 0, 0);
+        sem_init(&lock[i], 0, 0);
         // mac use sem_open
-        sem_open(&lock[i],0,0);
+        // sem_open(&lock[i],0,0);
     }
 
     for(int i=1;i<NUMTHREAD;i++){

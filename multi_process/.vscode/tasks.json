@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "Makefile",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                 "multi_process.c","-o","multi_process"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+            // Make this the default build command.
+            // "isBuildCommand": true,
+            // // Show the output window only if unrecognized errors occur.
+            // "showOutput": "always",
+            // // No args
+            // "args": ["all"],
+            // // Use the standard less compilation problem matcher.
+            // "problemMatcher": {
+            //     "owner": "cpp",
+            //     "fileLocation": ["relative", "${workspaceRoot}"],
+            //     "pattern": {
+            //         "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+            //         "file": 1,
+            //         "line": 2,
+            //         "column": 3,
+            //         "severity": 4,
+            //         "message": 5
+            //     }
+            // }
+        },
+        {
+            "taskName": "Run compile",
+            "type": "shell",
+            "command": "./multi_process",
+        }
+    ]
+}

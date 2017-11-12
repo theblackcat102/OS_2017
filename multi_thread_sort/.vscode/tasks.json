@@ -1,0 +1,10 @@
+{
+    "version": "0.1.0",
+    "command": "g++",
+    "isShellCommand": true,
+    // compiles and links with debugger information
+    "args": ["-g", "-o", "hello.out", "multi_thread.cpp"],
+    // without debugger information
+    // "args": ["-o", "hello.exe", "hello.cpp"],
+    "showOutput": "always"
+}

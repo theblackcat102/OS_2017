@@ -202,7 +202,8 @@ int main(int argc,char* argv[]){
 
     quickSort(number_list2,0,*b-1);
     printf("Result: %d\n",is_sequential(number_list2,*a));
-    print_array(number_list);
+    print_array(global_array);
+
     for(int i=0;i<NUMTHREAD;i++){
         // ubuntu use sem_init
         sem_init(&lock[i], 0, 0);

@@ -13,7 +13,6 @@ int size = 100;
 
 typedef struct params{
     int low;
-    int pivot;
     int high;
     int node;
     int *array;
@@ -150,6 +149,8 @@ void* split_thread(void *arguments){
         //     printf("%d ",arg->array[i]);
         // }
         // printf("\n\n");
+    }else{
+        bubbleSort(global_array,arg->low,arg->high);
     }
     // printf("Thread %d finished,pivot= %d, signaling %d,%d\n", arg->node,pivot,arg->node*2,(arg->node*2)+1);
     sem_post(&lock[arg->node]);
@@ -230,7 +231,7 @@ int main(int argc,char* argv[]){
     getchar();
     // printf("Start bubble sort\n");
     // bubbleSort(number_list,*a);
-    printf("Result: %d\n",is_sequential(number_list,*a));
-    print_array(number_list);
+    printf("Result: %d\n",is_sequential(global_array,*a));
+    print_array(global_array);
     return 0;
 }

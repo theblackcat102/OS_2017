@@ -162,7 +162,6 @@ void* split_thread(void *arguments){
 
 void* sort_thread(void *arguments){
     thread_params *arg = (thread_params *)arguments;
-    sem_wait(&lock[arg->node/2]);
     sem_wait(&lock[arg->node]);
     printf("\n Thread %d started\n", arg->node);
     printf("\n%d %d\nOriginal sequence\n",arg->low,arg->high);

@@ -169,16 +169,16 @@ void* sort_thread(void *arguments){
     for(int i=arg->low;i<=arg->high;i++){
         printf("%d ",global_array[i]);
     }
-    // for (int k = arg->low-1; k <= arg->high; k++){
-    //     for (int j = arg->low-1; j <= arg->high - k; j++){
-    //        if (arg->array[j] > arg->array[j+1]){
-    //            int temp = arg->array[j];
-    //            arg->array[j] = arg->array[j+1];
-    //            arg->array[j+1] = temp;
-    //        }
-    //     }
-    // }
-    bubbleSort(global_array,arg->low,arg->high);
+    for (int k = arg->low-1; k <= arg->high; k++){
+        for (int j = arg->low-1; j <= arg->high - k; j++){
+           if (arg->array[j] > arg->array[j+1]){
+               int temp = arg->array[j];
+               arg->array[j] = arg->array[j+1];
+               arg->array[j+1] = temp;
+           }
+        }
+    }
+    // bubbleSort(global_array,arg->low,arg->high);
 
     printf("\nPrint thread sequence\n");
     for(int i=arg->low;i<=arg->high;i++){
